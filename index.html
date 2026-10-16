@@ -499,9 +499,9 @@
       }
 
       .soundtrack {
-        position: relative;
-        right: auto;
-        bottom: auto;
+        position: fixed;
+        right: max(24px, env(safe-area-inset-right));
+        bottom: max(24px, env(safe-area-inset-bottom));
         z-index: 120;
         display: flex;
         align-items: center;
@@ -518,7 +518,7 @@
         backdrop-filter: blur(12px);
         box-shadow: 0 0 34px rgba(0, 255, 240, 0.14);
         transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-        margin: 0 auto 24px;
+        margin: 0;
         width: max-content;
       }
 
@@ -2374,8 +2374,8 @@
         }
 
         .soundtrack {
-          right: 14px;
-          bottom: 14px;
+          right: max(14px, env(safe-area-inset-right));
+          bottom: max(14px, env(safe-area-inset-bottom));
           max-width: 200px;
           gap: 10px;
           border-radius: 12px;
@@ -2430,7 +2430,15 @@
         }
 
         .soundtrack {
-          max-width: 176px;
+          width: 52px;
+          height: 52px;
+          max-width: none;
+          padding: 8px;
+          border-radius: 50%;
+        }
+
+        .soundtrack-meta {
+          display: none;
         }
       }
 
@@ -2555,6 +2563,8 @@
               <strong>EDUCATION</strong>
               B.E. Robotics &amp; AI — BIT Bengaluru<br />
               CGPA: 8.55 / 10
+              <strong>UPCOMING</strong>
+              Intern — GyanSys Inc.
               <strong>LOCATION</strong>
               Bengaluru, Karnataka
               <strong>CONTACT</strong>
@@ -2562,7 +2572,7 @@
             </div>
           </aside>
           <div class="about-copy reveal">
-            <p>I'm a Robotics &amp; AI engineering student at BIT Bengaluru building systems at the intersection of machine intelligence and real-world infrastructure.</p>
+            <p>I'm a Robotics &amp; AI engineering student at BIT Bengaluru building systems at the intersection of machine intelligence and real-world infrastructure. I'm also an upcoming intern at GyanSys Inc., where I'll learn how experienced teams ship dependable software at scale.</p>
             <p>My work spans a working-capital decision engine that protects cash, an AI drug-discovery pipeline that screens molecular candidates, and a chaos engineering platform that breaks infrastructure to make it stronger. I don't build tutorial projects — I build systems with architecture diagrams.</p>
             <p>When I'm not shipping code, I'm flying RC aircraft with the Aero Club, grinding DSA through TLE Eliminators, or thinking about how distributed systems fail at 3am.</p>
             <div class="now-building">
@@ -2665,12 +2675,13 @@
           <div class="future-terminal">
             <div class="future-terminal-bar">future.txt — WHERE I'M HEADED</div>
             <pre>gourav@portfolio:~$ cat future.txt
-&gt; Today:  building systems that work
-&gt; Next:   building systems that matter
-&gt; Goal:   learn from real teams at iLEAD, then lead one</pre>
+&gt; Today:       building reliable AI + backend systems
+&gt; Next:        learning at GyanSys Inc. as an upcoming intern
+&gt; Five years:  taking hard ideas from prototype to production
+&gt; North star:  systems people can trust when the stakes are real</pre>
           </div>
           <div class="future-copy">
-            <p>Right now, I build systems that work. I want to build ones that matter—AI for healthcare and elder care, backed by infrastructure people can depend on. At iLEAD, I want to learn how real teams ship and grow from someone who builds projects into someone who leads them.</p>
+            <p>I want to become the kind of engineer who can move between research, product, and infrastructure—turning an ambitious idea into a system people can trust. My upcoming internship at GyanSys Inc. is the next step: learning how experienced teams design, ship, and operate software in the real world. Over the next five years, I want to deepen my work in dependable AI, healthcare technology, and resilient platforms, while growing into someone who can lead a team without losing the habit of building.</p>
           </div>
         </div>
       </section>
