@@ -1699,6 +1699,35 @@
         line-height: 1.8;
       }
 
+      .future-principles {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .future-principle {
+        border: 0.5px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg3);
+        padding: 18px;
+      }
+
+      .future-principle strong {
+        display: block;
+        margin-bottom: 9px;
+        color: var(--accent);
+        font-size: 11px;
+        letter-spacing: 0.14em;
+      }
+
+      .future-principle p {
+        margin: 0;
+        color: var(--text2);
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
       .availability {
         display: inline-flex;
         align-items: center;
@@ -2342,6 +2371,10 @@
           padding: 18px;
         }
 
+        .future-principles {
+          grid-template-columns: 1fr;
+        }
+
         .contact-grid {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -2677,11 +2710,18 @@
             <pre>gourav@portfolio:~$ cat future.txt
 &gt; Today:       building reliable AI + backend systems
 &gt; Next:        learning at GyanSys Inc. as an upcoming intern
+&gt; iLEAD 2027:  learn with real teams, contribute early, help others ship
 &gt; Five years:  taking hard ideas from prototype to production
 &gt; North star:  systems people can trust when the stakes are real</pre>
           </div>
           <div class="future-copy">
             <p>I want to become the kind of engineer who can move between research, product, and infrastructure—turning an ambitious idea into a system people can trust. My upcoming internship at GyanSys Inc. is the next step: learning how experienced teams design, ship, and operate software in the real world. Over the next five years, I want to deepen my work in dependable AI, healthcare technology, and resilient platforms, while growing into someone who can lead a team without losing the habit of building.</p>
+            <p>I see myself as someone who learns by building, tests assumptions by breaking things, and makes complex systems easier for other people to understand. For iLEAD 2027, I want to bring that curiosity into a real team—contribute before I feel completely ready, learn from feedback, and help turn good ideas into work people can rely on.</p>
+          </div>
+          <div class="future-principles" aria-label="How I work">
+            <div class="future-principle"><strong>BUILD</strong><p>Turn ambiguous ideas into working systems, then improve them with evidence.</p></div>
+            <div class="future-principle"><strong>BREAK</strong><p>Stress assumptions early so failure modes become visible before they become incidents.</p></div>
+            <div class="future-principle"><strong>LEAD</strong><p>Make hard problems clearer, share what I learn, and help the team ship well.</p></div>
           </div>
         </div>
       </section>
