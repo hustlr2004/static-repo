@@ -505,11 +505,11 @@
         z-index: 120;
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 0;
         border: 0.5px solid rgba(0, 255, 240, 0.28);
-        border-radius: 18px;
+        border-radius: 50%;
         background: rgba(0, 0, 0, 0.82);
-        padding: 14px 18px;
+        padding: 0;
         color: var(--text);
         cursor: none;
         font-size: 12px;
@@ -517,22 +517,24 @@
         text-transform: uppercase;
         backdrop-filter: blur(12px);
         box-shadow: 0 0 34px rgba(0, 255, 240, 0.14);
-        transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+        overflow: hidden;
+        transition: width 220ms ease, border-radius 220ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
         margin: 0;
-        width: max-content;
+        width: 48px;
+        height: 48px;
       }
 
       .soundtrack::before {
         content: "▶";
+        flex: 0 0 46px;
         display: grid;
         place-items: center;
-        width: 44px;
-        height: 44px;
+        width: 46px;
+        height: 46px;
         border-radius: 50%;
-        border: 0.5px solid var(--accent);
         background: var(--accent);
         color: #00100f;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 700;
         box-shadow: 0 0 28px rgba(0, 255, 240, 0.52);
       }
@@ -542,17 +544,33 @@
         animation: pulse 1300ms ease infinite;
       }
 
-      .soundtrack:hover {
+      .soundtrack:hover,
+      .soundtrack.playing {
+        width: 164px;
+        gap: 12px;
+        border-radius: 24px;
         transform: translateY(-2px);
         border-color: var(--alert);
         color: var(--alert);
         box-shadow: 0 0 22px rgba(255, 51, 78, 0.22);
       }
 
+      .soundtrack:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+      }
+
       .soundtrack-meta {
         display: grid;
-        gap: 3px;
+        flex: 0 0 auto;
+        opacity: 0;
         text-align: left;
+        transition: opacity 160ms ease;
+      }
+
+      .soundtrack:hover .soundtrack-meta,
+      .soundtrack.playing .soundtrack-meta {
+        opacity: 1;
       }
 
       .soundtrack-meta strong {
@@ -561,8 +579,7 @@
       }
 
       .soundtrack-meta span {
-        color: var(--text2);
-        font-size: 10px;
+        display: none;
       }
 
       @keyframes pillUp {
@@ -1688,15 +1705,17 @@
 
       .future-copy {
         display: grid;
-        gap: 12px;
+        gap: 18px;
+        max-width: 70ch;
         margin: 20px 0 8px;
       }
 
       .future-copy p {
         margin: 0;
-        color: var(--text2);
+        color: var(--text);
         font-size: 13px;
-        line-height: 1.8;
+        line-height: 1.7;
+        letter-spacing: normal;
       }
 
       .future-principles {
@@ -2409,21 +2428,13 @@
         .soundtrack {
           right: max(14px, env(safe-area-inset-right));
           bottom: max(14px, env(safe-area-inset-bottom));
-          max-width: 200px;
-          gap: 10px;
-          border-radius: 12px;
-          padding: 10px 12px;
-          font-size: 10px;
+          max-width: none;
         }
 
         .soundtrack::before {
-          width: 34px;
-          height: 34px;
-          font-size: 14px;
-        }
-
-        .soundtrack-meta span {
-          display: none;
+          width: 46px;
+          height: 46px;
+          font-size: 16px;
         }
       }
 
@@ -2462,16 +2473,10 @@
           font-size: 9px;
         }
 
-        .soundtrack {
-          width: 52px;
-          height: 52px;
-          max-width: none;
-          padding: 8px;
+        .soundtrack:hover:not(.playing) {
+          width: 48px;
+          gap: 0;
           border-radius: 50%;
-        }
-
-        .soundtrack-meta {
-          display: none;
         }
       }
 
@@ -2558,7 +2563,7 @@
       <section class="section hero" id="home">
         <div class="reveal">
           <h1>Gourav<br /><span class="gradient-name">Singh</span></h1>
-          <div class="hero-sub">Robotics &amp; AI Engineer · Full Stack Developer · Systems Builder</div>
+          <div class="hero-sub">Robotics &amp; AI Engineer · Full Stack Developer · Systems Builder · Upcoming Intern at GyanSys Inc.</div>
           <p class="hero-copy">
             I build AI-driven systems, scalable backend platforms, and infrastructure that fixes itself —
             solving problems that actually matter.
@@ -2708,15 +2713,16 @@
           <div class="future-terminal">
             <div class="future-terminal-bar">future.txt — WHERE I'M HEADED</div>
             <pre>gourav@portfolio:~$ cat future.txt
-&gt; Today:       building reliable AI + backend systems
+&gt; Now:         building reliable AI + backend systems
 &gt; Next:        learning at GyanSys Inc. as an upcoming intern
 &gt; iLEAD 2027:  learn with real teams, contribute early, help others ship
 &gt; Five years:  taking hard ideas from prototype to production
 &gt; North star:  systems people can trust when the stakes are real</pre>
           </div>
           <div class="future-copy">
-            <p>I want to become the kind of engineer who can move between research, product, and infrastructure—turning an ambitious idea into a system people can trust. My upcoming internship at GyanSys Inc. is the next step: learning how experienced teams design, ship, and operate software in the real world. Over the next five years, I want to deepen my work in dependable AI, healthcare technology, and resilient platforms, while growing into someone who can lead a team without losing the habit of building.</p>
-            <p>I see myself as someone who learns by building, tests assumptions by breaking things, and makes complex systems easier for other people to understand. For iLEAD 2027, I want to bring that curiosity into a real team—contribute before I feel completely ready, learn from feedback, and help turn good ideas into work people can rely on.</p>
+            <p>I see myself as someone who learns by building, tests assumptions by breaking things, and makes complex systems easier for other people to understand. Building and flying RC aircraft with the Aero Club has taught me to connect code with physical behaviour, test patiently, and learn from every unexpected failure.</p>
+            <p>For iLEAD 2027, I want to bring that curiosity into a real team: contribute before I feel completely ready, learn from feedback, and help turn good ideas into work people can rely on. GyanSys's flat, cross-functional environment and exposure to enterprise transformation can teach me how engineering decisions change across teams, customers and platforms. I also want to learn the constraints personal projects rarely reveal: legacy systems, governance, security, stakeholder trade-offs and the discipline required to scale and support software after launch.</p>
+            <p>I want to become the kind of engineer who can move between research, product and infrastructure, turning an ambitious idea into a system people can trust. Over the next five years, I want to deepen my work in dependable AI, healthcare technology and resilient platforms, while growing into someone who can lead a team without losing the habit of building.</p>
           </div>
           <div class="future-principles" aria-label="How I work">
             <div class="future-principle"><strong>BUILD</strong><p>Turn ambiguous ideas into working systems, then improve them with evidence.</p></div>
