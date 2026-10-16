@@ -52,6 +52,10 @@
         overflow: hidden;
       }
 
+      body.article-open {
+        overflow: hidden;
+      }
+
       a {
         color: inherit;
         cursor: none;
@@ -372,7 +376,7 @@
       h3 {
         font-family: "Orbitron", sans-serif;
         font-weight: 900;
-        letter-spacing: -0.045em;
+        letter-spacing: 0;
         text-transform: uppercase;
         text-shadow: 0 0 26px rgba(0, 255, 240, 0.08);
       }
@@ -380,7 +384,7 @@
       h1 {
         margin: 18px 0 18px;
         font-size: clamp(56px, 9vw, 116px);
-        line-height: 0.82;
+        line-height: 0.9;
       }
 
       h2 {
@@ -495,11 +499,11 @@
       }
 
       .soundtrack {
-        position: fixed;
-        right: 24px;
-        bottom: 24px;
+        position: relative;
+        right: auto;
+        bottom: auto;
         z-index: 120;
-        display: inline-flex;
+        display: flex;
         align-items: center;
         gap: 14px;
         border: 0.5px solid rgba(0, 255, 240, 0.28);
@@ -514,6 +518,8 @@
         backdrop-filter: blur(12px);
         box-shadow: 0 0 34px rgba(0, 255, 240, 0.14);
         transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+        margin: 0 auto 24px;
+        width: max-content;
       }
 
       .soundtrack::before {
@@ -1426,6 +1432,155 @@
         line-height: 1.8;
       }
 
+      .article-card {
+        width: 100%;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        cursor: none;
+      }
+
+      .article-card:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 4px;
+        border-color: var(--border2);
+        box-shadow: 0 0 0 5px rgba(0, 255, 240, 0.1);
+      }
+
+      .article-card .article-cta {
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .article-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1100;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        background: rgba(0, 0, 0, 0.82);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      .article-modal.active {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+
+      .article-dialog {
+        position: relative;
+        width: min(820px, 100%);
+        max-height: min(86vh, 900px);
+        overflow-y: auto;
+        border: 0.5px solid var(--border2);
+        border-radius: 16px;
+        background: var(--bg2);
+        box-shadow: 0 0 70px rgba(0, 255, 240, 0.13);
+        transform: translateY(18px) scale(0.985);
+        transition: transform 180ms ease;
+      }
+
+      .article-modal.active .article-dialog {
+        transform: translateY(0) scale(1);
+      }
+
+      .article-dialog::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+      }
+
+      .article-header,
+      .article-content {
+        width: min(70ch, calc(100% - 64px));
+        margin-inline: auto;
+      }
+
+      .article-header {
+        padding: 52px 0 26px;
+        border-bottom: 0.5px solid var(--border);
+      }
+
+      .article-header h2 {
+        margin: 14px 0 10px;
+        font-size: clamp(28px, 5vw, 48px);
+        letter-spacing: 0;
+        line-height: 1.12;
+      }
+
+      .article-meta {
+        color: var(--text2);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+      }
+
+      .article-content {
+        padding: 30px 0 48px;
+        color: var(--text2);
+        font-size: 15px;
+        line-height: 1.7;
+        letter-spacing: normal;
+      }
+
+      .article-content p {
+        margin: 0 0 1.4em;
+        color: var(--text2);
+        letter-spacing: normal;
+      }
+
+      .article-github {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+        margin-top: 8px;
+        border: 0.5px solid var(--border2);
+        border-radius: 8px;
+        padding: 10px 14px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        transition: background 180ms ease, color 180ms ease;
+      }
+
+      .article-github:hover,
+      .article-github:focus-visible {
+        background: rgba(0, 255, 240, 0.1);
+        color: var(--text);
+        outline: 1px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .article-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        z-index: 2;
+        width: 42px;
+        height: 42px;
+        border: 0.5px solid var(--border2);
+        border-radius: 50%;
+        background: var(--bg3);
+        color: var(--accent);
+        cursor: none;
+        font: 700 20px/1 "JetBrains Mono", monospace;
+      }
+
+      .article-close:hover,
+      .article-close:focus-visible {
+        border-color: var(--accent);
+        color: var(--text);
+        outline: 1px solid var(--accent);
+        outline-offset: 3px;
+      }
+
       .timeline {
         position: relative;
         margin-top: 38px;
@@ -1499,6 +1654,49 @@
         border-radius: 18px;
         background: var(--bg2);
         padding: 34px;
+      }
+
+      .future-terminal {
+        margin: 28px 0 10px;
+        overflow: hidden;
+        border: 0.5px solid var(--border2);
+        border-radius: 14px;
+        background: #000;
+        box-shadow: inset 0 0 34px rgba(0, 255, 240, 0.035);
+      }
+
+      .future-terminal-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 38px;
+        border-bottom: 0.5px solid var(--border);
+        padding: 0 16px;
+        color: var(--text2);
+        font-size: 10px;
+        letter-spacing: 0.1em;
+      }
+
+      .future-terminal pre {
+        margin: 0;
+        overflow-x: auto;
+        padding: 22px;
+        color: var(--accent3);
+        font: 500 12px/1.9 "JetBrains Mono", monospace;
+        white-space: pre-wrap;
+      }
+
+      .future-copy {
+        display: grid;
+        gap: 12px;
+        margin: 20px 0 8px;
+      }
+
+      .future-copy p {
+        margin: 0;
+        color: var(--text2);
+        font-size: 13px;
+        line-height: 1.8;
       }
 
       .availability {
@@ -1615,6 +1813,12 @@
         letter-spacing: 0.14em;
         pointer-events: none;
         opacity: 0.7;
+        transition: opacity 180ms ease, visibility 180ms ease;
+      }
+
+      .hud.is-hidden {
+        visibility: hidden;
+        opacity: 0;
       }
 
       .hud::before,
@@ -1746,6 +1950,11 @@
         color: var(--alert) !important;
         border-color: var(--alert);
         text-shadow: 0 0 18px rgba(255, 51, 78, 0.24);
+      }
+
+      .article-content p:hover {
+        color: var(--text2) !important;
+        text-shadow: none;
       }
 
       @media (max-width: 900px) {
@@ -1996,7 +2205,7 @@
 
         h1 {
           font-size: clamp(48px, 12vw, 80px);
-          line-height: 0.86;
+          line-height: 0.94;
         }
 
         h2 {
@@ -2159,29 +2368,9 @@
           overflow-wrap: anywhere;
         }
 
-        .hud {
-          font-size: 8px;
-          letter-spacing: 0.1em;
-        }
-
-        .hud.tl,
-        .hud.bl,
-        .hud.br,
+        .hud,
         .reticle {
           display: none;
-        }
-
-        .hud.tr {
-          display: block;
-          top: 16px;
-          right: 14px;
-          max-width: 126px;
-        }
-
-        .hud::before,
-        .hud::after {
-          width: 28px;
-          margin: 4px 0;
         }
 
         .soundtrack {
@@ -2259,14 +2448,11 @@
 
         h1 {
           font-size: clamp(44px, 14vw, 64px);
+          letter-spacing: 0;
         }
 
         .mobile-brand {
           display: none;
-        }
-
-        .hud.tr {
-          max-width: 110px;
         }
 
         .terminal-body {
@@ -2280,9 +2466,9 @@
     <div class="reticle" id="reticle">⊕</div>
     <div class="glitch-flash" id="glitch-flash"></div>
     <div class="hud tl">SYS/GS-01<br />MODE: PORTFOLIO_OS</div>
-    <div class="hud tr">TARGET: INTERNSHIP<br />SIGNAL: STABLE</div>
+    <div class="hud tr">TARGET: BUILD<br />SIGNAL: STABLE</div>
     <div class="hud bl">LAT 12.9716<br />LON 77.5946</div>
-    <div class="hud br">SCAN READY<br />BUILD: 2025.08</div>
+    <div class="hud br">SCAN READY<br />BUILD: 2026.10</div>
     <button class="mobile-nav-toggle" id="mobile-nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
     <a href="#home" class="mobile-brand" aria-label="Go to home">GS.DEV</a>
     <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
@@ -2296,7 +2482,7 @@
         <div class="boot-line"><span>&gt; Connecting to PostgreSQL...</span><div class="bar"><span style="--w: 100%"></span></div><span>100% ✓</span></div>
         <div class="boot-line"><span>&gt; Injecting chaos faults...</span><div class="bar"><span style="--w: 40%"></span></div><span>40%</span></div>
         <div class="boot-line"><span>↳ Auto-repair triggered ✓</span><div class="bar"><span style="--w: 100%"></span></div><span>100% ✓</span></div>
-        <div class="boot-line"><span>&gt; Booting voice systems...</span><div class="bar"><span style="--w: 100%"></span></div><span>100% ✓</span></div>
+        <div class="boot-line"><span>&gt; Verifying capital decisions...</span><div class="bar"><span style="--w: 100%"></span></div><span>100% ✓</span></div>
         <div class="boot-line"><span>SYSTEM NOMINAL — LAUNCHING PORTFOLIO ✓</span><span></span><span></span></div>
       </div>
     </div>
@@ -2315,11 +2501,12 @@
           <a href="#projects">03 Projects</a>
           <a href="#timeline">04 Achievements</a>
           <a href="#dsa">05 CP + Certs</a>
-          <a href="#writing">06 Thinking Out Loud</a>
-          <a href="#contact">07 Contact</a>
+          <a href="#writing">06 Writing</a>
+          <a href="#future">07 Future</a>
+          <a href="#contact">08 Contact</a>
         </div>
         <div class="nav-foot">
-          Build: 2025.08<br />
+          Build: 2026.10<br />
           Runtime: human + machine<br />
           Cursor: target-lock
         </div>
@@ -2329,7 +2516,6 @@
     <main>
       <section class="section hero" id="home">
         <div class="reveal">
-          <div class="eyebrow">● OPEN TO INTERNSHIPS &amp; RESEARCH</div>
           <h1>Gourav<br /><span class="gradient-name">Singh</span></h1>
           <div class="hero-sub">Robotics &amp; AI Engineer · Full Stack Developer · Systems Builder</div>
           <p class="hero-copy">
@@ -2342,7 +2528,7 @@
             <a class="btn" href="assets/resume/Gourav_Singh_Resume.pdf" download>Resume ↓</a>
           </div>
           <div class="stats">
-            <span class="stat-pill" style="--i: 0">⚡ 8.45 CGPA</span>
+            <span class="stat-pill" style="--i: 0">⚡ 8.55 CGPA</span>
             <span class="stat-pill" style="--i: 1">🏆 3x Hackathon</span>
             <span class="stat-pill" style="--i: 2">📦 100+ DSA</span>
           </div>
@@ -2363,12 +2549,12 @@
         <div class="about-grid">
           <aside class="reveal">
             <div class="avatar-card">
-              <img src="assets/profile/gourav-singh.jpeg" alt="Portrait of Gourav Singh" />
+              <img src="assets/profile/gourav-singh.png" alt="Portrait of Gourav Singh" />
             </div>
             <div class="edu">
               <strong>EDUCATION</strong>
               B.E. Robotics &amp; AI — BIT Bengaluru<br />
-              CGPA: 8.45 / 10
+              CGPA: 8.55 / 10
               <strong>LOCATION</strong>
               Bengaluru, Karnataka
               <strong>CONTACT</strong>
@@ -2377,18 +2563,18 @@
           </aside>
           <div class="about-copy reveal">
             <p>I'm a Robotics &amp; AI engineering student at BIT Bengaluru building systems at the intersection of machine intelligence and real-world infrastructure.</p>
-            <p>My work spans AI drug-discovery pipelines that screen molecular candidates in minutes, chaos engineering platforms that break infrastructure to make it stronger, and multilingual voice bots that handle real phone orders. I don't build tutorial projects — I build systems with architecture diagrams.</p>
+            <p>My work spans a working-capital decision engine that protects cash, an AI drug-discovery pipeline that screens molecular candidates, and a chaos engineering platform that breaks infrastructure to make it stronger. I don't build tutorial projects — I build systems with architecture diagrams.</p>
             <p>When I'm not shipping code, I'm flying RC aircraft with the Aero Club, grinding DSA through TLE Eliminators, or thinking about how distributed systems fail at 3am.</p>
             <div class="now-building">
               <strong>now_building.sh</strong>
               <span>AI infrastructure</span>
               <span>self-healing backends</span>
-              <span>voice automation</span>
+              <span>working-capital intelligence</span>
               <span>scientific ML systems</span>
             </div>
             <div class="counter-strip">
-              <div class="counter"><b data-count="8.45">0</b><span>CGPA</span></div>
-              <div class="counter"><b data-count="7" data-suffix="+">0</b><span>Projects</span></div>
+              <div class="counter"><b data-count="8.55">0</b><span>CGPA</span></div>
+              <div class="counter"><b data-count="10" data-suffix="+">0</b><span>Projects</span></div>
               <div class="counter"><b data-count="100" data-suffix="+">0</b><span>DSA</span></div>
               <div class="counter"><b data-count="3">0</b><span>Wins</span></div>
               <div class="counter"><b data-count="7" data-suffix="+">0</b><span>Certs</span></div>
@@ -2461,27 +2647,42 @@
       <section class="section" id="writing">
         <div class="section-label reveal">// 06 — WRITING</div>
         <h2 class="reveal">Thinking out loud</h2>
-        <p class="muted reveal">Technical writing on systems, AI, and engineering — coming soon.</p>
+        <p class="muted reveal">Notes on what I build and why. More posts on the way.</p>
         <div class="blog-grid reveal">
-          <div class="mini-card"><span class="badge">AI · Drug Discovery</span><h3>How I Built an AI That Designs Drug Molecules</h3><p>Coming soon</p></div>
-          <div class="mini-card"><span class="badge">Chaos Engineering</span><h3>Breaking Your Own Infrastructure on Purpose</h3><p>Coming soon</p></div>
-          <div class="mini-card"><span class="badge">Platform Engineering</span><h3>Why Self-Healing Systems Are the Future of DevOps</h3><p>Coming soon</p></div>
-          <div class="mini-card"><span class="badge">DevOps</span><h3>Docker + Prometheus: Monitoring That Actually Alerts</h3><p>Coming soon</p></div>
-          <div class="mini-card"><span class="badge">Voice Systems</span><h3>Designing Multilingual Call Flows Without LLM Chaos</h3><p>Coming soon</p></div>
-          <div class="mini-card"><span class="badge">Applied CNNs</span><h3>Medical Vision Pipelines for Biometric Classification</h3><p>Coming soon</p></div>
+          <button class="mini-card article-card" type="button" data-article="molecular-design"><span class="badge">AI · Drug Discovery</span><h3>How I Built an AI That Designs Drug Molecules</h3><p class="article-cta">Read article → · 3 min</p></button>
+          <button class="mini-card article-card" type="button" data-article="chaos-engineering"><span class="badge">Chaos Engineering</span><h3>Breaking Your Own Infrastructure on Purpose</h3><p class="article-cta">Read article → · 3 min</p></button>
+          <button class="mini-card article-card" type="button" data-article="self-healing"><span class="badge">Platform Engineering</span><h3>Why Self-Healing Systems Are the Future of DevOps</h3><p class="article-cta">Read article → · 3 min</p></button>
+          <button class="mini-card article-card" type="button" data-article="docker-prometheus"><span class="badge">DevOps</span><h3>Docker + Prometheus: Monitoring That Actually Alerts</h3><p class="article-cta">Read article → · 3 min</p></button>
+          <button class="mini-card article-card" type="button" data-article="llm-math"><span class="badge">AI · Finance Systems</span><h3>Why I Don't Let the LLM Do the Math</h3><p class="article-cta">Read article → · 3 min</p></button>
+          <button class="mini-card article-card" type="button" data-article="forecast-model"><span class="badge">Forecasting</span><h3>Letting the Data Pick the Forecast Model</h3><p class="article-cta">Read article → · 3 min</p></button>
+        </div>
+      </section>
+
+      <section class="section" id="future">
+        <div class="section-label reveal">// 07 — WHERE I'M HEADED</div>
+        <div class="contact-panel reveal">
+          <h2>Where I'm headed</h2>
+          <div class="future-terminal">
+            <div class="future-terminal-bar">future.txt — WHERE I'M HEADED</div>
+            <pre>gourav@portfolio:~$ cat future.txt
+&gt; Today:  building systems that work
+&gt; Next:   building systems that matter
+&gt; Goal:   learn from real teams at iLEAD, then lead one</pre>
+          </div>
+          <div class="future-copy">
+            <p>Right now, I build systems that work. I want to build ones that matter—AI for healthcare and elder care, backed by infrastructure people can depend on. At iLEAD, I want to learn how real teams ship and grow from someone who builds projects into someone who leads them.</p>
+          </div>
         </div>
       </section>
 
       <section class="section" id="contact">
-        <div class="section-label reveal">// 07 — CONTACT</div>
+        <div class="section-label reveal">// 08 — CONTACT</div>
         <div class="contact-panel reveal">
           <h2>Let's build something worth shipping</h2>
           <p class="muted">
-            I'm actively looking for backend, AI engineering, platform engineering, or research internship opportunities —
-            especially roles involving distributed systems, ML infrastructure, or scientific AI. If you're working on
-            something ambitious, I'd love to hear about it.
+            I enjoy working on AI systems, backend infrastructure and ideas that are hard to get right. If you're building
+            something ambitious, or just want to talk about it, I'd love to hear from you.
           </p>
-          <div class="availability"><span class="pulse"></span>Available — Open to Internships &amp; Research Collaborations</div>
           <div class="contact-grid">
             <a class="contact-link" href="https://github.com/hustlr2004">
               <span class="contact-icon">GH</span>
@@ -2495,7 +2696,7 @@
               <span class="contact-icon">@</span>
               <span><strong>Email</strong><span>singhgopal08579@gmail.com</span></span>
             </a>
-            <a class="contact-link download" href="assets/resume/Gourav_Singh_Resume.pdf" download>
+            <a class="contact-link download" href="assets/resume/Gourav_Singh_Resume.pdf" download="Gourav_Singh_Resume.pdf">
               <span class="contact-icon">CV</span>
               <span><strong>Resume</strong><span>Download PDF</span></span>
             </a>
@@ -2512,7 +2713,22 @@
     </button>
     <audio id="soundtrack-audio" src="assets/audio/derezzed.mp3" preload="metadata" loop></audio>
 
-    <footer>Built with HTML · CSS · JS · Deployed on Vercel · © 2025 Gourav Singh</footer>
+    <footer>Built with HTML · CSS · JS · Deployed on Vercel · © 2026 Gourav Singh</footer>
+
+    <div class="article-modal" id="article-modal" aria-hidden="true">
+      <article class="article-dialog" role="dialog" aria-modal="true" aria-labelledby="article-title">
+        <button class="article-close" id="article-close" type="button" aria-label="Close article">×</button>
+        <header class="article-header">
+          <span class="badge" id="article-tag"></span>
+          <h2 id="article-title"></h2>
+          <div class="article-meta" id="article-reading-time"></div>
+        </header>
+        <div class="article-content">
+          <div id="article-body"></div>
+          <a class="article-github" href="https://github.com/hustlr2004/Argus" target="_blank" rel="noopener noreferrer">View Argus on GitHub ↗</a>
+        </div>
+      </article>
+    </div>
 
     <div class="not-found" id="not-found" aria-hidden="true">
       <div class="not-found-card">gourav@portfolio:~$ cd /this-page
@@ -2529,16 +2745,12 @@
 > Robotics & AI Engineer | Systems Builder
 
 gourav@portfolio:~$ ls projects/
-> MolGenix/   ChaosLab/   TechCart/
-> EldiMind/   FingerprintCNN/   FakeNewsML/   SanchaarSaathi/
+> Argus/   ChaosLab/   MolGenix/
 
 gourav@portfolio:~$ cat achievements.txt
 > HackSurgeX 2nd Place — MolGenix
 > Project Expo Winner 2025 — CNN
 > SIH Round 2 Qualifier
-
-gourav@portfolio:~$ echo $STATUS
-> Open to internships & research collab ✓
 
 gourav@portfolio:~$ `;
 
@@ -2554,27 +2766,19 @@ gourav@portfolio:~$ `;
 
       const featured = [
         {
-          title: "MolGenix",
-          badge: "HERO PROJECT",
-          tagline: "When AI meets molecular biology, drug discovery changes forever.",
-          problem: "Drug discovery takes 10–15 years and costs billions. MolGenix compresses months of wet-lab hypothesis testing into a computational pipeline that runs in minutes.",
-          visual: "molecule",
-          repo: "https://github.com/hustlr2004/Molgenix.git",
-          repoName: "hustlr2004/Molgenix",
-          nodes: [
-            ["React UI", "blue", 5, 14], ["FastAPI Gateway", "grey", 32, 14], ["NLP Pipeline", "purple", 63, 14],
-            ["Mol Generator", "purple", 18, 45], ["RDKit Validator", "success", 50, 45], ["DeepChem ADMET", "success", 18, 70],
-            ["AutoDock Vina", "purple", 50, 70], ["PostgreSQL + Redis", "grey", 68, 45]
-          ],
+          title: "Argus",
+          badge: "WORKING-CAPITAL ENGINE",
+          tagline: "Working-capital decision engine",
+          problem: "",
+          visual: "argus",
+          repo: "https://github.com/hustlr2004/Argus",
+          repoName: "hustlr2004/Argus",
           highlights: [
-            "NLP-driven generative molecular design",
-            "RDKit for SMILES parsing & chemical validation",
-            "DeepChem ADMET toxicity & bioavailability prediction",
-            "AutoDock Vina physics-based binding simulation",
-            "FastAPI orchestration + Redis caching",
-            "HackSurgeX 2nd Place winner"
+            "Designed and built Argus, a working-capital decision engine using React and TypeScript, deployed serverlessly on Cloudflare Workers with Cloudflare D1 to store compact, immutable analysis snapshots and record user-approved outcomes.",
+            "Developed a browser-native forecasting engine that backtests Seasonal Naive, Simple Exponential Smoothing and Croston's Method per SKU and selects the lowest-WAPE model, with a forecast-residual anomaly detector using Median Absolute Deviation (MAD).",
+            "Enforced financial safety by routing all cash runway, budget and MOQ calculations through deterministic code, restricting Gemini 2.5 Flash to explanations, with a numeric verification gate that discards LLM output containing unsupported numbers."
           ],
-          tags: ["FastAPI", "RDKit", "DeepChem", "AutoDock", "PostgreSQL", "Redis", "React"]
+          tags: ["React", "TypeScript", "Tailwind CSS", "Gemini 2.5 Flash", "Cloudflare Workers", "Cloudflare D1"]
         },
         {
           title: "ChaosLab",
@@ -2584,11 +2788,6 @@ gourav@portfolio:~$ `;
           visual: "chaos",
           repo: "https://github.com/hustlr2004/chaos-engg-platform.git",
           repoName: "hustlr2004/chaos-engg-platform",
-          nodes: [
-            ["k6 Load Gen", "blue", 6, 14], ["Target App", "grey", 35, 14], ["Toxiproxy", "purple", 66, 14],
-            ["Prometheus", "success", 18, 45], ["cAdvisor", "success", 46, 45], ["BullMQ Plane", "purple", 32, 68],
-            ["Auto-Repair", "success", 64, 68], ["React Dashboard", "blue", 8, 78]
-          ],
           highlights: [
             "4 fault types: CPU, memory, network latency, container kill",
             "Toxiproxy for network fault injection",
@@ -2600,115 +2799,170 @@ gourav@portfolio:~$ `;
           tags: ["Node.js", "Docker", "Prometheus", "BullMQ", "Toxiproxy", "k6", "React"]
         },
         {
-          title: "TechCart E-commerce",
-          badge: "FULL STACK",
-          tagline: "A developer-first commerce system with clean product flow and backend control.",
-          problem: "TechCart is an e-commerce platform for browsing products, managing carts, handling orders, and keeping the shopping workflow fast, structured, and scalable.",
-          visual: "commerce",
-          repo: "https://github.com/hustlr2004/techcart-ecommerce.git",
-          repoName: "hustlr2004/techcart-ecommerce",
-          nodes: [
-            ["Product UI", "blue", 6, 14], ["Cart State", "purple", 34, 14], ["Checkout", "success", 64, 14],
-            ["Auth", "grey", 12, 45], ["Orders API", "grey", 42, 45], ["Database", "success", 70, 45],
-            ["Admin Panel", "blue", 22, 72], ["Inventory", "success", 58, 72]
-          ],
+          title: "MolGenix",
+          badge: "HERO PROJECT",
+          tagline: "When AI meets molecular biology, drug discovery changes forever.",
+          problem: "Drug discovery takes 10–15 years and costs billions. MolGenix compresses months of wet-lab hypothesis testing into a computational pipeline that runs in minutes.",
+          visual: "molecule",
+          repo: "https://github.com/hustlr2004/Molgenix.git",
+          repoName: "hustlr2004/Molgenix",
           highlights: [
-            "Product catalog and cart management flow",
-            "Order pipeline with backend persistence",
-            "Admin-friendly inventory structure",
-            "Responsive storefront built for conversion"
+            "NLP-driven generative molecular design",
+            "RDKit for SMILES parsing & chemical validation",
+            "DeepChem ADMET toxicity & bioavailability prediction",
+            "AutoDock Vina physics-based binding simulation",
+            "FastAPI orchestration + Redis caching",
+            "HackSurgeX 2nd Place winner"
           ],
-          tags: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "E-commerce"]
+          tags: ["FastAPI", "RDKit", "DeepChem", "AutoDock", "PostgreSQL", "Redis", "React"]
         }
       ];
 
-      const secondary = [
-        {
-          title: "EldiMind",
-          badge: "ELDER CARE AI",
-          tagline: "AI-powered elder care, built to actually scale.",
-          problem: "A backend-first elder care system with AI chat, image analysis, health report export, and real-time call signaling for remote family support.",
-          visual: "care",
-          repo: "https://github.com/hustlr2004/Eldimind-App.git",
-          repoName: "hustlr2004/Eldimind-App",
-          nodes: [
-            ["React Client", "blue", 6, 14], ["Express API", "grey", 34, 14], ["Gemini API", "purple", 64, 14],
-            ["Image Analysis", "purple", 12, 45], ["FastAPI ML", "grey", 42, 45], ["PDF Export", "success", 70, 45],
-            ["WebRTC Signal", "blue", 22, 72], ["Care Report", "success", 58, 72]
-          ],
-          highlights: [
-            "Gemini-backed chat and image analysis",
-            "FastAPI ML microservice for health intelligence",
-            "PDF health report export pipeline",
-            "Real-time call signaling for care coordination"
-          ],
-          tags: ["TypeScript", "Express", "Gemini API", "FastAPI", "PDF Export", "WebRTC"]
+      const secondary = [];
+      const articles = {
+        "molecular-design": {
+          tag: "AI · Drug Discovery",
+          title: "How I Built an AI That Designs Drug Molecules",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/Molgenix.git",
+          githubLabel: "View MolGenix on GitHub ↗",
+          paragraphs: [
+            "Drug discovery starts with a search problem so large that trying every possible molecule is impossible. With MolGenix, I wanted to build a pipeline that could generate promising candidates, reject invalid chemistry early, and carry the survivors far enough to produce evidence worth inspecting.",
+            "The pipeline represents molecules as SMILES strings. A generative stage proposes candidates, then RDKit parses each structure and applies chemical validation before expensive analysis begins. Treating validation as a hard gate matters: a model can produce text that looks molecular without producing a structure that chemistry software can actually use.",
+            "Candidates that pass are evaluated with DeepChem for properties connected to absorption, distribution, metabolism, excretion and toxicity. These predictions do not replace laboratory work, but they help rank a large candidate set and remove obvious dead ends. AutoDock Vina then estimates how the remaining molecules interact with a target protein.",
+            "FastAPI coordinates the stages and Redis caches repeated work, because molecular analysis becomes slow when every request starts from zero. Keeping generation, validation, property prediction and docking as separate steps also makes failures easier to trace and individual models easier to replace.",
+            "The biggest lesson was that an AI result becomes useful only when it survives a chain of domain checks. Generating a molecule is the interesting headline; building the validation pipeline around it is what makes the system credible."
+          ]
         },
-        {
-          title: "Fingerprint Blood Group CNN",
-          badge: "PROJECT EXPO WINNER 2025",
-          tagline: "Your fingerprint knows your blood type. Deep learning proved it.",
-          problem: "CNN-based image classifier trained to predict blood group classes from fingerprint images with a production-style training pipeline.",
-          visual: "fingerprint",
-          repo: "https://github.com/hustlr2004/blood-detection-using-ml.git",
-          repoName: "hustlr2004/blood-detection-using-ml",
-          nodes: [
-            ["Fingerprint Set", "blue", 6, 14], ["Preprocess", "grey", 34, 14], ["CNN Stack", "purple", 64, 14],
-            ["Conv + ReLU", "purple", 12, 45], ["MaxPool", "purple", 38, 45], ["Dropout 0.5", "grey", 64, 45],
-            ["Softmax", "success", 24, 72], ["8 Classes", "success", 58, 72]
-          ],
-          highlights: [
-            "4 Conv layers with ReLU and MaxPooling",
-            "Dropout 0.5 to reduce overfitting",
-            "Softmax output over A, B, O, and AB variants",
-            "Won Project Expo 2025 at BIT"
-          ],
-          tags: ["TensorFlow", "Keras", "CNN", "Python", "ImageDataGenerator"]
+        "chaos-engineering": {
+          tag: "Chaos Engineering",
+          title: "Breaking Your Own Infrastructure on Purpose",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/chaos-engg-platform.git",
+          githubLabel: "View ChaosLab on GitHub ↗",
+          paragraphs: [
+            "Most infrastructure looks reliable when nothing is wrong. The useful question is what happens when a container disappears, memory pressure rises, the CPU is saturated or a network dependency becomes painfully slow. ChaosLab creates those conditions deliberately so the answer arrives before production provides it.",
+            "Each experiment starts with a controlled fault. Toxiproxy introduces network latency, load tools create pressure, and container-level actions simulate failures such as a process being killed. The experiment is bounded by duration and target so the blast radius stays understandable instead of turning into random destruction.",
+            "While the fault runs, Prometheus and cAdvisor collect system signals. Those metrics are streamed into the interface alongside live Socket.io logs, which makes the sequence visible: the fault begins, an indicator crosses a threshold, a recovery policy runs, and the system either stabilizes or fails the test.",
+            "BullMQ handles experiment jobs so fault injection is not tied to one browser request. Recovery actions can scale a container, roll back a change or apply rate limiting. The important part is verification after the action; restarting something is not the same as proving that service health returned.",
+            "Chaos engineering changed how I think about reliability. A system is not resilient because its architecture diagram looks redundant. It is resilient when a real failure can be introduced, detected, repaired and explained without guesswork."
+          ]
         },
-        {
-          title: "Fake News Detection",
-          badge: "STREAMLIT APP",
-          tagline: "Teaching machines to smell misinformation.",
-          problem: "Interactive Streamlit app that transforms news text into TF-IDF features and classifies misinformation with a Logistic Regression model.",
-          visual: "news",
-          repo: "https://github.com/hustlr2004/fake-news-detection.git",
-          repoName: "hustlr2004/fake-news-detection",
-          nodes: [
-            ["News Input", "blue", 6, 14], ["Clean Text", "grey", 34, 14], ["TF-IDF", "purple", 64, 14],
-            ["Vector Space", "purple", 16, 45], ["LogReg Model", "grey", 46, 45], ["Prediction", "success", 70, 45],
-            ["Streamlit UI", "blue", 24, 72], ["Trust Signal", "success", 58, 72]
-          ],
-          highlights: [
-            "TF-IDF text vectorization pipeline",
-            "Logistic Regression classifier",
-            "Interactive Streamlit deployment",
-            "Built as an app, not just a notebook"
-          ],
-          tags: ["Python", "Scikit-learn", "TF-IDF", "Logistic Regression", "Streamlit"]
+        "self-healing": {
+          tag: "Platform Engineering",
+          title: "Why Self-Healing Systems Are the Future of DevOps",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/chaos-engg-platform.git",
+          githubLabel: "View ChaosLab on GitHub ↗",
+          paragraphs: [
+            "Alerts are useful, but an alert that wakes a person for a predictable failure is also evidence that the platform could have handled more of the work itself. Self-healing systems move the first response from a runbook in someone's head into a bounded, testable control loop.",
+            "That loop has four parts: observe the system, decide whether a known failure is happening, run a safe action, and verify the result. Skipping the last step is dangerous. A restarted container may be running while the service is still unhealthy, so recovery has to be measured against the signal that triggered it.",
+            "In ChaosLab, those actions include container scaling, rollback and rate limiting. They are intentionally narrow. Automation should not improvise during an incident; it should choose from policies with clear conditions, limits and fallback behavior. If the evidence is weak, escalating to a person is safer than pretending the system understands everything.",
+            "Chaos experiments make these policies testable. Instead of waiting for a real outage, I can inject CPU pressure, memory pressure, latency or a container failure and watch whether detection and recovery happen in the expected order. The result is a repeatable reliability test rather than a reassuring diagram.",
+            "I think the future of DevOps is less about eliminating operators and more about removing repetitive uncertainty. Platforms should repair the failures they understand, show exactly what they changed, and give humans better context for the failures they do not."
+          ]
         },
-        {
-          title: "Sanchaar Saathi",
-          badge: "MULTILINGUAL CALL OPS",
-          tagline: "A phone call. Four languages. Zero human operators.",
-          problem: "A multilingual call-flow system for English, Hindi, Kannada, and Marathi with deterministic conversation logic, persistent order state, and clean telephony handoff.",
-          visual: "voice",
-          repo: "https://github.com/hustlr2004/voicebot.git",
-          repoName: "hustlr2004/voicebot",
-          nodes: [
-            ["Incoming Call", "blue", 6, 14], ["Twilio", "blue", 34, 14], ["FastAPI Webhook", "grey", 62, 14],
-            ["Language Detector", "purple", 14, 45], ["State Machine", "purple", 48, 45], ["SQLite", "grey", 72, 45],
-            ["TwiML Response", "success", 26, 72], ["Order Confirmed ✓", "success", 60, 72]
-          ],
-          highlights: [
-            "Production FastAPI service with Twilio integration",
-            "Deterministic call logic without hallucinated orders",
-            "SQLite-backed conversation and order state",
-            "Language templates for en · hi · kn · mr",
-            "Dockerised for deployment"
-          ],
-          tags: ["FastAPI", "Twilio", "SQLite", "Docker", "Python", "Multilingual"]
+        "docker-prometheus": {
+          tag: "DevOps",
+          title: "Docker + Prometheus: Monitoring That Actually Alerts",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/chaos-engg-platform.git",
+          githubLabel: "View ChaosLab on GitHub ↗",
+          paragraphs: [
+            "A dashboard full of graphs can still leave a system effectively unmonitored. Useful monitoring starts with a question: what signal would tell me that users are about to feel a failure, and what action should follow when that signal changes?",
+            "For containerized services, cAdvisor exposes CPU, memory and container lifecycle metrics. Prometheus scrapes those measurements into time series that can be queried consistently across experiments. Docker keeps the monitored services and supporting tools reproducible, so the same setup can be started on another machine without rebuilding the environment by hand.",
+            "The difficult part is choosing alert conditions. A brief CPU spike may be harmless, while sustained saturation alongside rising latency is a stronger sign of trouble. Thresholds need a duration and enough context to avoid firing on every harmless fluctuation. An alert should represent a condition worth acting on, not simply a number that moved.",
+            "In ChaosLab, live logs and metrics are shown together while faults run. That makes an alert explainable: I can see the injected failure, the metric change, the policy decision and the recovery action on one timeline. It also exposes bad rules quickly when an alert fires too early, too late or not at all.",
+            "The lesson is that observability is a feedback system, not a collection of charts. Docker makes the environment repeatable, Prometheus makes the signals queryable, and deliberate failure testing proves whether the alerts mean what I think they mean."
+          ]
+        },
+        "llm-math": {
+          tag: "AI · Finance Systems",
+          title: "Why I Don't Let the LLM Do the Math",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/Argus",
+          githubLabel: "View Argus on GitHub ↗",
+          paragraphs: [
+            "Argus helps with working-capital decisions: how much cash runway is left, what a budget allows, and what a minimum order quantity (MOQ) forces you to buy. These are numbers people act on, so a confident but wrong answer is worse than no answer at all.",
+            "That is why every cash runway, budget and MOQ calculation in Argus runs through deterministic code. The same inputs always give the same outputs, and the logic can be tested line by line. There is no room for a model to guess.",
+            "Gemini 2.5 Flash is used for one job only: explanation. It receives results that have already been computed and turns them into plain language, so someone who does not read spreadsheets can still understand why the numbers look the way they do.",
+            "Even explanations can go wrong, so there is one more safeguard: a numeric verification gate. Before an explanation is shown, the numbers in it are checked against the numbers the code actually computed. If the model mentions a figure that is not supported, the whole output is discarded rather than shown.",
+            "The lesson I took from this: language models are very good at language and unreliable at arithmetic, so I don't ask them to be right where I can verify. I design the system so that when the model slips, nothing harmful reaches the user."
+          ]
+        },
+        "forecast-model": {
+          tag: "Forecasting",
+          title: "Letting the Data Pick the Forecast Model",
+          readingTime: "3 min",
+          github: "https://github.com/hustlr2004/Argus",
+          githubLabel: "View Argus on GitHub ↗",
+          paragraphs: [
+            "No single forecasting method works for every product. A fast-moving item with a clear yearly pattern behaves very differently from a slow item that sells once in a while. Instead of choosing one model and hoping, Argus lets each SKU choose for itself.",
+            "For every SKU, the engine backtests three methods. Seasonal Naive predicts that the next period will look like the same period last season. Simple Exponential Smoothing gives more weight to recent history. Croston's Method is built for intermittent demand, where many periods have zero sales, and it estimates the size of demand and the gap between orders separately.",
+            "To compare them, recent history is held back, each method forecasts it, and the forecasts are scored against what really happened. The score is WAPE (Weighted Absolute Percentage Error): total absolute error divided by total actual demand. It handles zero-demand periods better than plain percentage error, and it weights busy items by their real volume. The method with the lowest WAPE wins for that SKU.",
+            "The same forecasts also power anomaly detection. Argus looks at the residuals, the gap between actual and forecast, and flags unusual ones using Median Absolute Deviation (MAD). Because MAD is based on the median, a few extreme spikes don't distort the baseline the way they would with an average.",
+            "All of this runs in the browser. The takeaway for me: simple, well-understood models chosen by evidence are easier to trust, and easier to explain, than one complex model applied everywhere."
+          ]
         }
-      ];
+      };
+
+      const articleModal = document.getElementById("article-modal");
+      const articleClose = document.getElementById("article-close");
+      let articleTrigger = null;
+
+      function openArticle(articleId, trigger) {
+        const article = articles[articleId];
+        if (!article) return;
+        articleTrigger = trigger;
+        document.getElementById("article-tag").textContent = article.tag;
+        document.getElementById("article-title").textContent = article.title;
+        document.getElementById("article-reading-time").textContent = `${article.readingTime} read`;
+        document.getElementById("article-body").innerHTML = article.paragraphs.map((paragraph) => `<p>${paragraph}</p>`).join("");
+        const articleGithub = document.querySelector(".article-github");
+        articleGithub.href = article.github;
+        articleGithub.textContent = article.githubLabel;
+        articleModal.classList.add("active");
+        articleModal.setAttribute("aria-hidden", "false");
+        document.body.classList.add("article-open");
+        window.setTimeout(() => articleClose.focus(), 200);
+      }
+
+      function closeArticle() {
+        if (!articleModal.classList.contains("active")) return;
+        articleModal.classList.remove("active");
+        articleModal.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("article-open");
+        articleTrigger?.focus();
+        articleTrigger = null;
+      }
+
+      document.querySelectorAll("[data-article]").forEach((card) => {
+        card.addEventListener("click", () => openArticle(card.dataset.article, card));
+      });
+
+      articleClose.addEventListener("click", closeArticle);
+      articleModal.addEventListener("click", (event) => {
+        if (event.target === articleModal) closeArticle();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!articleModal.classList.contains("active")) return;
+        if (event.key === "Escape") {
+          closeArticle();
+          return;
+        }
+        if (event.key !== "Tab") return;
+        const focusable = [...articleModal.querySelectorAll("button, a[href]")];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      });
 
       function typeTerminal() {
         const target = document.getElementById("terminal-text");
@@ -2744,104 +2998,17 @@ gourav@portfolio:~$ `;
 
       function renderProjectImage(type = "system") {
         const imageMap = {
+          argus: "argus-ai.png",
           molecule: "molgenix.jpg",
-          chaos: "chaoslab.jpg",
-          voice: "automaton-voice-bot.jpg",
-          commerce: "techcart.jpg",
-          care: "eldimind.jpg",
-          fingerprint: "fingerprint-cnn.jpg",
-          news: "fake-news-detection.jpg"
+          chaos: "chaoslab.jpg"
         };
         const file = imageMap[type] || imageMap.molecule;
         return `<img class="project-image" src="assets/project-images/${file}" alt="${type} project visual" loading="lazy" />`;
-
-        const common = `class="project-image" viewBox="0 0 420 130" preserveAspectRatio="none"`;
-        const visuals = {
-          molecule: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <circle cx="324" cy="46" r="58" fill="rgba(0,255,240,.08)"/>
-            <circle cx="76" cy="100" r="52" fill="rgba(255,45,120,.08)"/>
-            <g fill="none" stroke-linecap="round" filter="url(#glow)">
-              <path d="M30 38 C82 8 122 94 174 48 S286 22 372 86" stroke="rgba(0,255,240,.86)" stroke-width="2"/>
-              <path d="M42 96 C86 52 130 98 176 56 S284 72 378 28" stroke="rgba(255,45,120,.62)" stroke-width="1.8"/>
-              <path d="M82 26 L114 70 M144 70 L184 50 M226 38 L268 54 M300 70 L344 48" stroke="rgba(232,236,244,.26)" stroke-width="1.2"/>
-            </g>
-            <g fill="rgba(0,255,240,.9)"><circle cx="82" cy="26" r="7"/><circle cx="184" cy="50" r="6"/><circle cx="300" cy="70" r="7"/></g>
-            <g fill="rgba(255,45,120,.86)"><circle cx="114" cy="70" r="8"/><circle cx="226" cy="38" r="6"/><circle cx="344" cy="48" r="8"/></g>
-            <g stroke="rgba(0,255,240,.24)" fill="none"><circle cx="338" cy="58" r="22"/><circle cx="338" cy="58" r="36"/><circle cx="338" cy="58" r="50"/></g>
-          </svg>`,
-          chaos: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <g stroke="rgba(0,255,240,.58)" fill="rgba(0,255,240,.045)">
-              <rect x="38" y="18" width="62" height="84" rx="5"/>
-              <rect x="122" y="18" width="62" height="84" rx="5"/>
-              <rect x="206" y="18" width="62" height="84" rx="5"/>
-            </g>
-            <g stroke="rgba(0,255,240,.18)"><path d="M50 38 H88 M50 58 H88 M50 78 H88 M134 38 H172 M134 58 H172 M134 78 H172 M218 38 H256 M218 58 H256 M218 78 H256"/></g>
-            <path d="M278 18 L238 64 L286 54 L250 114 L352 46 L304 54 L342 18" fill="rgba(255,45,120,.16)" stroke="rgba(255,45,120,.95)" stroke-width="2" filter="url(#glow)"/>
-            <path d="M24 112 L64 112 L78 78 L96 126 L116 96 L138 96 L156 54 L184 118 L214 86 L396 86" stroke="rgba(0,255,240,.82)" stroke-width="2" fill="none"/>
-            <circle cx="356" cy="48" r="40" fill="rgba(255,45,120,.08)"/>
-          </svg>`,
-          voice: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <rect x="40" y="18" width="72" height="94" rx="16" fill="rgba(0,255,240,.06)" stroke="rgba(0,255,240,.78)"/>
-            <circle cx="76" cy="92" r="8" fill="rgba(0,255,240,.8)"/>
-            <path d="M152 66 Q174 22 196 66 T240 66 T284 66 T328 66 T372 66" stroke="rgba(0,255,240,.92)" stroke-width="2.2" fill="none" filter="url(#glow)"/>
-            <path d="M152 66 Q174 110 196 66 T240 66 T284 66 T328 66 T372 66" stroke="rgba(255,45,120,.68)" stroke-width="2" fill="none"/>
-            <g fill="rgba(0,255,240,.16)"><circle cx="196" cy="66" r="20"/><circle cx="240" cy="66" r="17"/><circle cx="284" cy="66" r="14"/><circle cx="328" cy="66" r="11"/></g>
-            <path d="M348 22 C374 38 386 54 390 82" stroke="rgba(0,255,240,.4)" stroke-width="1.2" fill="none"/>
-            <path d="M360 12 C398 34 408 60 410 96" stroke="rgba(255,45,120,.32)" stroke-width="1.2" fill="none"/>
-          </svg>`,
-          commerce: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <rect x="34" y="28" width="150" height="82" rx="12" fill="rgba(0,255,240,.055)" stroke="rgba(0,255,240,.72)"/>
-            <g fill="rgba(255,45,120,.13)" stroke="rgba(255,45,120,.74)"><rect x="58" y="48" width="38" height="34" rx="6"/><rect x="118" y="48" width="38" height="34" rx="6"/></g>
-            <path d="M230 94 H350 L364 54 H242" stroke="rgba(0,255,240,.95)" stroke-width="2.5" fill="none" filter="url(#glow)"/>
-            <circle cx="254" cy="106" r="7" fill="rgba(0,255,240,.82)"/>
-            <circle cx="330" cy="106" r="7" fill="rgba(0,255,240,.82)"/>
-            <g stroke="rgba(0,255,240,.32)"><path d="M204 42 H396 M204 62 H396 M204 82 H396"/></g>
-            <circle cx="294" cy="54" r="44" fill="rgba(255,45,120,.07)"/>
-          </svg>`,
-          care: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <circle cx="90" cy="54" r="48" fill="rgba(255,45,120,.07)"/>
-            <g fill="rgba(0,255,240,.08)" stroke="rgba(0,255,240,.72)" stroke-width="1.4">
-              <circle cx="84" cy="42" r="18"/>
-              <path d="M44 114 C52 76 70 62 86 62 C108 62 126 80 132 114 Z"/>
-              <circle cx="158" cy="44" r="14"/>
-              <path d="M130 114 C138 84 152 66 166 66 C184 66 196 84 202 114 Z"/>
-            </g>
-            <rect x="224" y="24" width="154" height="86" rx="12" fill="rgba(0,255,240,.035)" stroke="rgba(0,255,240,.45)"/>
-            <path d="M240 70 H262 L274 42 L292 98 L310 58 H360" stroke="rgba(255,45,120,.9)" stroke-width="2.2" fill="none" filter="url(#glow)"/>
-            <path d="M204 72 C238 34 290 26 342 44" stroke="rgba(0,255,240,.32)" stroke-width="1.2" fill="none"/>
-          </svg>`,
-          fingerprint: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <g fill="none" stroke="rgba(0,255,240,.82)" stroke-width="2" filter="url(#glow)">
-              <path d="M120 118 C52 76 72 14 142 14 C218 14 238 102 166 128"/>
-              <path d="M128 100 C88 68 100 34 146 34 C198 34 210 90 160 108"/>
-              <path d="M138 82 C116 60 124 48 148 48 C174 48 180 74 154 86"/>
-              <path d="M104 48 C122 4 204 8 224 66"/>
-            </g>
-            <g stroke="rgba(255,45,120,.72)" fill="rgba(255,45,120,.08)"><rect x="260" y="30" width="34" height="28" rx="6"/><rect x="314" y="30" width="34" height="28" rx="6"/><rect x="260" y="76" width="34" height="28" rx="6"/><rect x="314" y="76" width="34" height="28" rx="6"/></g>
-            <path d="M230 26 V112 M246 26 V112 M362 26 V112" stroke="rgba(0,255,240,.14)"/>
-          </svg>`,
-          news: `<svg ${common}>
-            <rect width="420" height="130" fill="#02050b"/>
-            <rect x="34" y="18" width="140" height="94" rx="8" fill="rgba(0,255,240,.055)" stroke="rgba(0,255,240,.7)"/>
-            <rect x="54" y="34" width="50" height="40" fill="rgba(255,45,120,.14)" stroke="rgba(255,45,120,.65)"/>
-            <path d="M118 38 H158 M118 54 H150 M54 88 H158" stroke="rgba(0,255,240,.75)" stroke-width="2"/>
-            <g fill="rgba(0,255,240,.72)"><circle cx="228" cy="40" r="3"/><circle cx="250" cy="68" r="3"/><circle cx="282" cy="46" r="3"/><circle cx="318" cy="78" r="3"/><circle cx="350" cy="54" r="3"/></g>
-            <g stroke="rgba(0,255,240,.24)"><path d="M228 40 L250 68 L282 46 L318 78 L350 54"/><path d="M250 68 L318 78"/></g>
-            <path d="M206 102 H366" stroke="rgba(255,45,120,.8)" stroke-width="2"/>
-            <path d="M340 88 L370 102 L340 116" stroke="rgba(255,45,120,.8)" stroke-width="2" fill="none"/>
-          </svg>`
-        };
-        return visuals[type] || visuals.molecule;
       }
-
       function renderProjects() {
-        const allProjects = [...featured, ...secondary];
+        const projectOrder = ["Argus", "ChaosLab", "MolGenix"];
+        const projectByTitle = new Map([...featured, ...secondary].map((project) => [project.title, project]));
+        const allProjects = projectOrder.map((title) => projectByTitle.get(title)).filter(Boolean);
 
         document.getElementById("featured-projects").innerHTML = allProjects.map((project, index) => `
           <article class="project-card ${index < 3 ? "featured" : ""} reveal">
@@ -2851,7 +3018,7 @@ gourav@portfolio:~$ `;
                 ${project.badge ? `<span class="badge">${project.badge}</span>` : ""}
                 <h3>${project.title}</h3>
                 <p><strong>${project.tagline}</strong></p>
-                <p>${project.problem}</p>
+                ${project.problem ? `<p>${project.problem}</p>` : ""}
                 <ul>${project.highlights.map((item) => `<li>${item}</li>`).join("")}</ul>
                 <div class="tags">${project.tags.map((tag) => `<span class="tag">${tag}</span>`).join("")}</div>
               </div>
@@ -2955,6 +3122,9 @@ gourav@portfolio:~$ `;
 
       window.addEventListener("scroll", () => {
         document.getElementById("nav").classList.toggle("scrolled", window.scrollY > window.innerHeight * 0.35);
+        document.querySelectorAll(".hud").forEach((item) => {
+          item.classList.toggle("is-hidden", window.scrollY > window.innerHeight * 0.72);
+        });
         updateActiveNav();
       });
 
@@ -2996,7 +3166,7 @@ gourav@portfolio:~$ `;
       });
 
       function checkRoute() {
-        const valid = ["", "#home", "#about", "#skills", "#projects", "#timeline", "#dsa", "#writing", "#contact"];
+        const valid = ["", "#home", "#about", "#skills", "#projects", "#timeline", "#dsa", "#writing", "#future", "#contact"];
         const panel = document.getElementById("not-found");
         const isKnownPath = location.pathname.endsWith("/") || location.pathname.endsWith("index.html");
         const isKnownHash = valid.includes(location.hash);
